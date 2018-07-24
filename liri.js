@@ -14,23 +14,21 @@ var client = new Twitter(keys.twitter);
 var omdb = keys.omdb.api_key;
 
 //take user input and respond accordingly
-var userInput = process.argv[2];
-var secondInput = process.argv[3];
+liri(process.argv[2], process.argv[3]);
 
-liri(userInput, secondInput);
-
+// Function takes in input1 = command and input2 = argument
 function liri(input1, input2) {
-    switch (userInput) {
+    switch (input1) {
         case "my-tweets":
             displayTweets();
             break;
 
         case "spotify-this-song":
-            displaySpotify();
+            displaySpotify(input2);
             break;
 
         case "movie-this":
-            displayMovie();
+            displayMovie(input2);
             break;
 
         case "do-what-it-says":
@@ -53,25 +51,27 @@ function displayTweets() {
     });
 }
 
-function displaySpotify() {
-    if (secondInput === undefined) {
-        secondInput = "The sign";
+function displaySpotify(songTitle) {
+    if (songTitle === undefined) {
+        songTitle = "The sign";
     }
-    spotify.search({ type: 'track', query: secondInput }, (err, data) => {
+    spotify.search({ type: 'track', query: songTitle }, (err, data) => {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
         console.log("The song, " + data.tracks.items[0].name + " was performed by " + data.tracks.items[0].artists[0].name + ".");
         console.log("It was released on the " + data.tracks.items[0].album.name + " album.");
-        console.log("A preview can be heard here: " + data.tracks.items[0].preview_url + ".");
+        if (data.tracks.items[0].preview_url) {
+            console.log("A preview can be heard here: " + data.tracks.items[0].preview_url + ".");
+        }
     });
 }
 
-function displayMovie() {
-    if (secondInput === undefined) {
-        secondInput = "Mr. Nobody"
+function displayMovie(movieTitle) {
+    if (movieTitle === undefined) {
+        movieTitle = "Mr. Nobody"
     }
-    var queryUrl = "http://www.omdbapi.com/?t=" + secondInput + "&apikey=" + omdb;
+    var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + omdb;
     request(queryUrl, (error, response, body) => {
         // Request to the queryUrl
         // If the request is successful
