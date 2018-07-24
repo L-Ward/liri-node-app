@@ -36,6 +36,10 @@ function liri(input1, input2) {
         case "do-what-it-says":
             doWhat();
             break;
+
+        default:
+            console.log("Invalid command. Try: my-tweets, spotify-this-song, movie-this or do-what-it-says.");
+            break;
     }
 }
 
@@ -51,7 +55,7 @@ function displayTweets() {
 
 function displaySpotify() {
     if (secondInput === undefined) {
-        secondInput = "The sign"
+        secondInput = "The sign";
     }
     spotify.search({ type: 'track', query: secondInput }, (err, data) => {
         if (err) {
@@ -81,7 +85,7 @@ function displayMovie() {
             console.log("Starring: " + JSON.parse(body).Actors);
             console.log(JSON.parse(body).Plot);
         }
-    })
+    });
 }
 
 function doWhat() {
