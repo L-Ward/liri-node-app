@@ -52,7 +52,7 @@ function displayTweets() {
 }
 
 function displaySpotify(songTitle) {
-    if (songTitle === undefined) {
+    if (!songTitle) {
         songTitle = "The sign artist:Ace of Base";
     }
     spotify.search({ type: 'track', query: songTitle }, (err, data) => {
@@ -68,7 +68,7 @@ function displaySpotify(songTitle) {
 }
 
 function displayMovie(movieTitle) {
-    if (movieTitle === undefined) {
+    if (!movieTitle) {
         movieTitle = "Mr. Nobody"
     }
     var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&apikey=" + omdb;
