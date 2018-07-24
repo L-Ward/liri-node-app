@@ -53,7 +53,7 @@ function displayTweets() {
 
 function displaySpotify(songTitle) {
     if (songTitle === undefined) {
-        songTitle = "The sign";
+        songTitle = "The sign artist:Ace of Base";
     }
     spotify.search({ type: 'track', query: songTitle }, (err, data) => {
         if (err) {
